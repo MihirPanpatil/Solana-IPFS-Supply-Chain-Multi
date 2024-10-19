@@ -1,0 +1,11 @@
+{% extends 'supply_chain/base.html' %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-4">Confirm Delete</h1>
+<p>Are you sure you want to delete the product "{{ product.name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded mt-4">Delete</button>
+    <a href="{% url 'product_detail' product.id %}" class="bg-gray-500 text-white px-4 py-2 rounded mt-4 ml-2">Cancel</a>
+</form>
+{% endblock %}

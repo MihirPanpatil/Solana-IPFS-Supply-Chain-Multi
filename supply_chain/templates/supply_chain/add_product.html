@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1 class="text-3xl font-bold mb-4">Add New Product</h1>
-<form method="post" class="bg-white p-4 rounded shadow">
+<form method="post" class="bg-white p-4 rounded shadow" enctype="multipart/form-data">
     {% csrf_token %}
     {% for field in form %}
         <div class="mb-4">

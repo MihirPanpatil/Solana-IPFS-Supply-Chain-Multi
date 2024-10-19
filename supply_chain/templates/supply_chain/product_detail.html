@@ -10,10 +10,13 @@
     <p><strong>Timestamp:</strong> {{ product.timestamp }}</p>
     <p><strong>Product Hash:</strong> {{ product.product_hash }}</p>
     <p><strong>IPFS Hash:</strong> {{ product.ipfs_hash }}</p>
-    {% if product.certificate %}
-        <p><strong>Certificate:</strong> <a href="{{ product.certificate.url }}" target="_blank" class="text-blue-500 hover:underline">View Certificate</a></p>
+    {% if product.certificate_ipfs_hash %}
+        <p><strong>Certificate:</strong> <a href="{% url 'get_ipfs_data' product.certificate_ipfs_hash %}" target="_blank" class="text-blue-500 hover:underline">View Certificate</a></p>
+    {% else %}
+        <p><strong>Certificate:</strong> No certificate available</p>
     {% endif %}
     <a href="{% url 'transfer_product' product.id %}" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded">Transfer Product</a>
+    <a href="{% url 'delete_product' product.id %}" class="mt-4 inline-block bg-red-500 text-white px-4 py-2 rounded ml-2">Delete Product</a>
 </div>
 
 <h2 class="text-2xl font-bold mt-8 mb-4">Transaction History</h2>
@@ -29,9 +32,13 @@
 </div>
 
 <h2 class="text-2xl font-bold mt-8 mb-4">Organization Hashes (for tracing)</h2>
-<div class="bg-white p-4 rounded shadow">
-    {% for org_hash in organization_hashes %}
-    <p>{{ org_hash }}</p>
-    {% endfor %}
-</div>
+<ul>
+{% for hash in organization_hashes %}
+    <li>
+        {% if hash.from %}From: {{ hash.from }}{% endif %}
+        <br>To: {{ hash.to }}
+        <br>Timestamp: {{ hash.timestamp }}<br><br>
+    </li>
+{% endfor %}
+</ul>
 {% endblock %}
