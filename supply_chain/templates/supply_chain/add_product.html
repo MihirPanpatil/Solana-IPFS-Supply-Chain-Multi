@@ -1,0 +1,24 @@
+{% extends 'supply_chain/base.html' %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-4">Add New Product</h1>
+<form method="post" class="bg-white p-4 rounded shadow">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="mb-4">
+            <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                {{ field.label }}
+            </label>
+            {{ field }}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <p class="text-red-500 text-xs italic">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Add Product
+    </button>
+</form>
+{% endblock %}

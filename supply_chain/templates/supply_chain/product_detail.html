@@ -1,0 +1,37 @@
+{% extends 'supply_chain/base.html' %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-4">{{ product.name }}</h1>
+<div class="bg-white p-4 rounded shadow mb-4">
+    <p><strong>Description:</strong> {{ product.description }}</p>
+    <p><strong>Status:</strong> {{ product.status }}</p>
+    <p><strong>Quantity:</strong> {{ product.quantity }} Kg</p>
+    <p><strong>Current Organization:</strong> {{ product.current_organization.name }}</p>
+    <p><strong>Timestamp:</strong> {{ product.timestamp }}</p>
+    <p><strong>Product Hash:</strong> {{ product.product_hash }}</p>
+    <p><strong>IPFS Hash:</strong> {{ product.ipfs_hash }}</p>
+    {% if product.certificate %}
+        <p><strong>Certificate:</strong> <a href="{{ product.certificate.url }}" target="_blank" class="text-blue-500 hover:underline">View Certificate</a></p>
+    {% endif %}
+    <a href="{% url 'transfer_product' product.id %}" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded">Transfer Product</a>
+</div>
+
+<h2 class="text-2xl font-bold mt-8 mb-4">Transaction History</h2>
+<div class="bg-white p-4 rounded shadow">
+    {% for transaction in transactions %}
+    <div class="mb-4 pb-4 border-b last:border-b-0">
+        <p><strong>From:</strong> {{ transaction.from_organization.name }}</p>
+        <p><strong>To:</strong> {{ transaction.to_organization.name }}</p>
+        <p><strong>Timestamp:</strong> {{ transaction.timestamp }}</p>
+        <p><strong>Transaction Hash:</strong> {{ transaction.transaction_hash }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<h2 class="text-2xl font-bold mt-8 mb-4">Organization Hashes (for tracing)</h2>
+<div class="bg-white p-4 rounded shadow">
+    {% for org_hash in organization_hashes %}
+    <p>{{ org_hash }}</p>
+    {% endfor %}
+</div>
+{% endblock %}
