@@ -18,8 +18,14 @@
             {% endif %}
         </div>
     {% endfor %}
-    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Add Product
+    <button type="submit" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-base font-medium text-white rounded-lg group bg-gradient-to-br from-blue-500 to-blue-600 group-hover:from-blue-500 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-800 dark:bg-gray-800 rounded-md group-hover:bg-opacity-0">
+            {% if 'transfer' in request.path %}
+                Transfer Product
+            {% else %}
+                Add Product
+            {% endif %}
+        </span>
     </button>
 </form>
 {% endblock %}

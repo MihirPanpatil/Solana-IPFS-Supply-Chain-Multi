@@ -3,21 +3,56 @@
 {% block header %}{{ product.name }}{% endblock %}
 
 {% block content %}
-<div class="bg-github-dark-secondary p-4 rounded shadow mb-4 border border-github-dark-border">
-    <p><strong>Description:</strong> {{ product.description }}</p>
-    <p><strong>Status:</strong> {{ product.status }}</p>
-    <p><strong>Quantity:</strong> {{ product.quantity }} Kg</p>
-    <p><strong>Current Organization:</strong> {{ product.current_organization.name }}</p>
-    <p><strong>Timestamp:</strong> {{ product.timestamp }}</p>
-    <p><strong>Product Hash:</strong> {{ product.product_hash }}</p>
-    <p><strong>IPFS Hash:</strong> {{ product.ipfs_hash }}</p>
-    {% if product.certificate_ipfs_hash %}
-        <p><strong>Certificate:</strong> <a href="{% url 'get_ipfs_data' product.certificate_ipfs_hash %}" target="_blank" class="text-blue-500 hover:underline">View Certificate</a></p>
-    {% else %}
-        <p><strong>Certificate:</strong> No certificate available</p>
-    {% endif %}
-    <a href="{% url 'transfer_product' product.id %}" class="mt-4 inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Transfer Product</a>
-    <a href="{% url 'delete_product' product.id %}" class="mt-4 inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded ml-2">Delete Product</a>
+<div class="bg-github-dark-secondary p-6 rounded-lg shadow-md border border-github-dark-border">
+    <h1 class="text-3xl font-bold mb-6 text-github-dark-text">{{ product.name }}</h1>
+    
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold mb-2 text-github-dark-text">Description</h2>
+        <p class="text-github-dark-text">{{ product.description }}</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div>
+            <h2 class="text-lg font-semibold mb-3 text-github-dark-text">Product Details</h2>
+            <ul class="space-y-2">
+                <li><span class="font-medium text-github-dark-text">Status:</span> <span class="text-green-400">{{ product.status }}</span></li>
+                <li><span class="font-medium text-github-dark-text">Quantity:</span> <span class="text-github-dark-text">{{ product.quantity }} Kg</span></li>
+                <li><span class="font-medium text-github-dark-text">Current Organization:</span> <span class="text-github-dark-text">{{ product.current_organization.name }}</span></li>
+                <li><span class="font-medium text-github-dark-text">Timestamp:</span> <span class="text-github-dark-text">{{ product.timestamp }}</span></li>
+            </ul>
+        </div>
+        <div>
+            <h2 class="text-lg font-semibold mb-3 text-github-dark-text">Technical Details</h2>
+            <ul class="space-y-2">
+                <li><span class="font-medium text-github-dark-text">Product Hash:</span> <span class="text-xs text-github-dark-text break-all">{{ product.product_hash }}</span></li>
+                <li><span class="font-medium text-github-dark-text">IPFS Hash:</span> <span class="text-xs text-github-dark-text break-all">{{ product.ipfs_hash }}</span></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="mt-6 space-x-4">
+        {% if product.certificate_ipfs_hash %}
+            <a href="{% url 'get_ipfs_data' product.certificate_ipfs_hash %}" target="_blank" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-base font-medium text-white rounded-lg group bg-gradient-to-br from-blue-500 to-blue-600 group-hover:from-blue-500 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-800 dark:bg-gray-800 rounded-md group-hover:bg-opacity-0">
+                    View Certificate
+                </span>
+            </a>
+        {% else %}
+            <p class="text-github-dark-text italic">No certificate available</p>
+        {% endif %}
+    
+        <a href="{% url 'transfer_product' product.id %}" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-base font-medium text-white rounded-lg group bg-gradient-to-br from-green-500 to-green-600 group-hover:from-green-500 group-hover:to-green-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800">
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-800 dark:bg-gray-800 rounded-md group-hover:bg-opacity-0">
+                Transfer Product
+            </span>
+        </a>
+    
+        <a href="{% url 'delete_product' product.id %}" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-base font-medium text-white rounded-lg group bg-gradient-to-br from-red-500 to-red-600 group-hover:from-red-500 group-hover:to-red-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800">
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-800 dark:bg-gray-800 rounded-md group-hover:bg-opacity-0">
+                Delete Product
+            </span>
+        </a>
+    </div>
 </div>
 
 <h2 class="text-2xl font-bold mt-8 mb-4">Transaction History</h2>
@@ -32,14 +67,33 @@
     {% endfor %}
 </div>
 
-<h2 class="text-2xl font-bold mt-8 mb-4">Organization Hashes (for tracing)</h2>
-<ul class="bg-github-dark-secondary p-4 rounded shadow border border-github-dark-border">
-{% for hash in organization_hashes %}
-    <li class="mb-4 last:mb-0">
-        {% if hash.from %}From: {{ hash.from }}{% endif %}
-        <br>To: {{ hash.to }}
-        <br>Timestamp: {{ hash.timestamp }}
-    </li>
-{% endfor %}
-</ul>
+<div class="mt-8">
+    <button id="toggleHashes" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        View Organization Hashes
+    </button>
+    <div id="hashesContent" class="hidden mt-4 bg-github-dark-secondary p-4 rounded shadow border border-github-dark-border">
+        <h2 class="text-2xl font-bold mb-4 text-github-dark-text">Organization Hashes (for tracing)</h2>
+        <ul>
+            {% for hash in organization_hashes %}
+                <li class="mb-4 last:mb-0 text-github-dark-text">
+                    {% if hash.from %}<strong>From:</strong> {{ hash.from }}<br>{% endif %}
+                    <strong>To:</strong> {{ hash.to }}<br>
+                    <strong>Timestamp:</strong> {{ hash.timestamp|date:"Y-m-d H:i:s T" }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<script>
+    document.getElementById('toggleHashes').addEventListener('click', function() {
+        var content = document.getElementById('hashesContent');
+        if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+        } else {
+            content.classList.add('hidden');
+        }
+    });
+</script>
+
 {% endblock %}

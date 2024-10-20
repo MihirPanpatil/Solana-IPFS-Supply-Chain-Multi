@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solana Supply Chain</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -15,6 +16,9 @@
                         'github-dark-secondary': '#161b22',
                         'github-dark-border': '#30363d',
                         'github-dark-text': '#c9d1d9',
+                    },
+                    fontFamily: {
+                        'cursive': ['"Dancing Script"', 'cursive'],
                     }
                 }
             }
@@ -26,7 +30,8 @@
         <!-- Navbar -->
         <nav class="bg-github-dark-secondary p-4 border-b border-github-dark-border fixed top-0 left-0 right-0 z-10">
             <div class="container mx-auto flex justify-between items-center">
-                <h1 class="text-2xl font-bold">Solana Supply Chain</h1>
+                <!-- Apply the cursive font to the title -->
+                <h1 class="text-3xl font-bold font-cursive pl-8">BlockHarvest</h1>
                 <a href="{% url 'add_product' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Add Product
                 </a>
@@ -35,16 +40,26 @@
 
         <div class="flex flex-grow mt-16">
             <!-- Sidebar -->
-            <div class="w-64 bg-github-dark-secondary border-r border-github-dark-border fixed top-16 bottom-0 left-0 overflow-y-auto">
-                <div class="p-4">
-                    <nav>
-                        <ul>
-                            <li class="mb-2"><a href="{% url 'welcome' %}" class="hover:text-white">Home</a></li>
-                            <li class="mb-2"><a href="{% url 'product_list' %}" class="hover:text-white">Product List</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+            
+<!-- Sidebar -->
+<div class="w-64 bg-github-dark-secondary border-r border-github-dark-border fixed top-16 bottom-0 left-0 overflow-y-auto">
+    <div class="p-0 pt-2"> <!-- Added pt-4 for top padding -->
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'welcome' %}" class="block w-full bg-github-dark-secondary hover:bg-github-dark text-github-dark-text font-bold py-3 px-4 border-b border-github-dark-border text-center"> <!-- Added text-center -->
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'product_list' %}" class="block w-full bg-github-dark-secondary hover:bg-github-dark text-github-dark-text font-bold py-3 px-4 border-b border-github-dark-border text-center"> <!-- Added text-center -->
+                        Product List
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
 
             <!-- Main content -->
             <div class="flex-1 ml-64 p-8 overflow-y-auto">

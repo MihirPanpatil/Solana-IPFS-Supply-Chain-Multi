@@ -1,23 +1,69 @@
 {% extends 'supply_chain/base.html' %}
 
-{% block header %}Welcome{% endblock %}
+{% block header %}Welcome to BlockHarvest{% endblock %}
 
 {% block content %}
-<h1 class="text-3xl font-bold mb-4">Welcome to Solana Supply Chain</h1>
-<div class="bg-github-dark-secondary p-6 rounded-lg border border-github-dark-border">
-    <p class="mb-4">
-        This application demonstrates a supply chain management system built on the Solana blockchain and IPFS.
-    </p>
-    <h2 class="text-2xl font-bold mb-2">Key Features:</h2>
-    <ul class="list-disc list-inside mb-4">
-        <li>Add and manage products in the supply chain</li>
-        <li>Transfer products between organizations</li>
-        <li>Track product history and transactions</li>
-        <li>Store product data and certificates on IPFS</li>
-        <li>Utilize Solana blockchain for secure and fast transactions</li>
-    </ul>
-    <p>
-        Get started by adding a new product or viewing the existing product list using the sidebar navigation.
-    </p>
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-center font-cursive">Welcome to BlockHarvest</h1>
+
+    <!-- Introduction -->
+    <div class="bg-github-dark-secondary p-6 rounded-lg border border-github-dark-border mb-8">
+        <p class="mb-4">
+            BlockHarvest is a cutting-edge supply chain management system built on the Solana blockchain and IPFS. Our platform revolutionizes how organizations track, manage, and secure their supply chain operations.
+        </p>
+    </div>
+
+    <!-- Key Features -->
+    <h2 class="text-3xl font-bold mb-4 font-cursive">Key Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div class="bg-github-dark-secondary p-4 rounded-lg border border-github-dark-border">
+            <h3 class="text-xl font-bold mb-2">Product Management</h3>
+            <p>Add, edit, and manage products with ease. Track every detail throughout the supply chain.</p>
+        </div>
+        <div class="bg-github-dark-secondary p-4 rounded-lg border border-github-dark-border">
+            <h3 class="text-xl font-bold mb-2">Blockchain Integration</h3>
+            <p>Leverage Solana's fast and secure blockchain for transparent, immutable transaction records.</p>
+        </div>
+        <div class="bg-github-dark-secondary p-4 rounded-lg border border-github-dark-border">
+            <h3 class="text-xl font-bold mb-2">IPFS Storage</h3>
+            <p>Store product data and certificates on IPFS for decentralized and reliable access.</p>
+        </div>
+        <div class="bg-github-dark-secondary p-4 rounded-lg border border-github-dark-border">
+            <h3 class="text-xl font-bold mb-2">Transfer Tracking</h3>
+            <p>Seamlessly transfer products between organizations and track the entire journey.</p>
+        </div>
+    </div>
+
+    <!-- Project Structure -->
+    <h2 class="text-3xl font-bold mb-4 font-cursive">Project Structure</h2>
+    <div class="bg-github-dark-secondary p-6 rounded-lg border border-github-dark-border mb-8">
+        <ul class="list-disc list-inside">
+            <li><strong>Frontend:</strong> Django templates with Tailwind CSS for responsive design</li>
+            <li><strong>Backend:</strong> Django framework for robust server-side logic</li>
+            <li><strong>Blockchain:</strong> Solana for fast and efficient transactions</li>
+            <li><strong>Storage:</strong> IPFS for decentralized file storage</li>
+        </ul>
+    </div>
+
+    <!-- Advantages -->
+    <h2 class="text-3xl font-bold mb-4 font-cursive">Advantages</h2>
+    <div class="bg-github-dark-secondary p-6 rounded-lg border border-github-dark-border mb-8">
+        <ol class="list-decimal list-inside space-y-2">
+            <li><strong>Enhanced Transparency:</strong> Full visibility of product movement and history</li>
+            <li><strong>Improved Security:</strong> Blockchain-backed data integrity and authenticity</li>
+            <li><strong>Efficient Operations:</strong> Streamlined processes for faster supply chain management</li>
+            <li><strong>Cost Reduction:</strong> Minimize intermediaries and reduce operational costs</li>
+            <li><strong>Real-time Updates:</strong> Instant access to the latest supply chain information</li>
+        </ol>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-4 font-cursive">Get Started Today</h2>
+        <p class="mb-4">Experience the future of supply chain management with BlockHarvest.</p>
+        <a href="{% url 'add_product' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
+            Add Your First Product
+        </a>
+    </div>
 </div>
 {% endblock %}
