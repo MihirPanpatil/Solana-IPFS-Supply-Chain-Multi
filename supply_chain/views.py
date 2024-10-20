@@ -18,13 +18,19 @@ from django.http import FileResponse
 from django.http import HttpResponse
 from PIL import Image
 import io
-
+from django.utils import timezone
+import pytz
 from .ipfs_integration import get_from_ipfs
 
+def get_ist_time():
+    return timezone.now().astimezone(pytz.timezone('Asia/Kolkata'))
 
 def product_list(request):
     products = Product.objects.all()
     return render(request, 'supply_chain/product_list.html', {'products': products})
+
+def welcome(request):
+    return render(request, 'supply_chain/welcome.html')
 
 from django.core.files.base import ContentFile
 
@@ -35,6 +41,7 @@ def add_product(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save(commit=False)
+            product.timestamp = get_ist_time()
             product_data = {
                 'name': product.name,
                 'description': product.description,
@@ -109,6 +116,7 @@ def transfer_product(request, product_id):
         form = TransactionForm(request.POST, product=product)
         if form.is_valid():
             transaction = form.save(commit=False)
+            transaction.timestamp = get_ist_time()
             transaction.product = product
             transaction.from_organization = product.current_organization
             transaction.save()

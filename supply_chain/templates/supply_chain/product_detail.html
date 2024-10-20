@@ -1,8 +1,9 @@
 {% extends 'supply_chain/base.html' %}
 
+{% block header %}{{ product.name }}{% endblock %}
+
 {% block content %}
-<h1 class="text-3xl font-bold mb-4">{{ product.name }}</h1>
-<div class="bg-white p-4 rounded shadow mb-4">
+<div class="bg-github-dark-secondary p-4 rounded shadow mb-4 border border-github-dark-border">
     <p><strong>Description:</strong> {{ product.description }}</p>
     <p><strong>Status:</strong> {{ product.status }}</p>
     <p><strong>Quantity:</strong> {{ product.quantity }} Kg</p>
@@ -15,14 +16,14 @@
     {% else %}
         <p><strong>Certificate:</strong> No certificate available</p>
     {% endif %}
-    <a href="{% url 'transfer_product' product.id %}" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded">Transfer Product</a>
-    <a href="{% url 'delete_product' product.id %}" class="mt-4 inline-block bg-red-500 text-white px-4 py-2 rounded ml-2">Delete Product</a>
+    <a href="{% url 'transfer_product' product.id %}" class="mt-4 inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Transfer Product</a>
+    <a href="{% url 'delete_product' product.id %}" class="mt-4 inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded ml-2">Delete Product</a>
 </div>
 
 <h2 class="text-2xl font-bold mt-8 mb-4">Transaction History</h2>
-<div class="bg-white p-4 rounded shadow">
+<div class="bg-github-dark-secondary p-4 rounded shadow border border-github-dark-border">
     {% for transaction in transactions %}
-    <div class="mb-4 pb-4 border-b last:border-b-0">
+    <div class="mb-4 pb-4 border-b border-github-dark-border last:border-b-0">
         <p><strong>From:</strong> {{ transaction.from_organization.name }}</p>
         <p><strong>To:</strong> {{ transaction.to_organization.name }}</p>
         <p><strong>Timestamp:</strong> {{ transaction.timestamp }}</p>
@@ -32,12 +33,12 @@
 </div>
 
 <h2 class="text-2xl font-bold mt-8 mb-4">Organization Hashes (for tracing)</h2>
-<ul>
+<ul class="bg-github-dark-secondary p-4 rounded shadow border border-github-dark-border">
 {% for hash in organization_hashes %}
-    <li>
+    <li class="mb-4 last:mb-0">
         {% if hash.from %}From: {{ hash.from }}{% endif %}
         <br>To: {{ hash.to }}
-        <br>Timestamp: {{ hash.timestamp }}<br><br>
+        <br>Timestamp: {{ hash.timestamp }}
     </li>
 {% endfor %}
 </ul>

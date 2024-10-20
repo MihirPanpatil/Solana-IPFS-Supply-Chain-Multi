@@ -5,17 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solana Supply Chain</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'github-dark': '#0d1117',
+                        'github-dark-secondary': '#161b22',
+                        'github-dark-border': '#30363d',
+                        'github-dark-text': '#c9d1d9',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100">
-    <nav class="bg-blue-600 p-4 text-white">
-        <div class="container mx-auto">
-            <a href="{% url 'product_list' %}" class="text-2xl font-bold">Solana Supply Chain</a>
-            <a href="{% url 'add_product' %}" class="ml-4">Add Product</a>
+<body class="bg-github-dark text-github-dark-text">
+    <div class="flex flex-col h-screen">
+        <!-- Navbar -->
+        <nav class="bg-github-dark-secondary p-4 border-b border-github-dark-border fixed top-0 left-0 right-0 z-10">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-2xl font-bold">Solana Supply Chain</h1>
+                <a href="{% url 'add_product' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Add Product
+                </a>
+            </div>
+        </nav>
+
+        <div class="flex flex-grow mt-16">
+            <!-- Sidebar -->
+            <div class="w-64 bg-github-dark-secondary border-r border-github-dark-border fixed top-16 bottom-0 left-0 overflow-y-auto">
+                <div class="p-4">
+                    <nav>
+                        <ul>
+                            <li class="mb-2"><a href="{% url 'welcome' %}" class="hover:text-white">Home</a></li>
+                            <li class="mb-2"><a href="{% url 'product_list' %}" class="hover:text-white">Product List</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <div class="flex-1 ml-64 p-8 overflow-y-auto">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
-    </nav>
-    <div class="container mx-auto mt-8">
-        {% block content %}
-        {% endblock %}
     </div>
 </body>
 </html>

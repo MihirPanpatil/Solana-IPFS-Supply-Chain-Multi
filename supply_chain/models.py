@@ -3,6 +3,8 @@ import hashlib
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
+from django.conf import settings
+import pytz
 
 ORGANIZATION_TYPES = [
     ('FARM', 'Farm'),
@@ -12,6 +14,9 @@ ORGANIZATION_TYPES = [
 ]
 
 ORGANIZATION_TYPE_ORDER = ['FARM', 'PROCESSING', 'DISTRIBUTION', 'RETAILER']
+
+def get_ist_time():
+    return timezone.now().astimezone(pytz.timezone('Asia/Kolkata'))
 
 class Organization(models.Model):
     ORG_TYPES = [
@@ -43,7 +48,7 @@ class Product(models.Model):
     status = models.CharField(max_length=50, default='Created')
     certificate = models.FileField(upload_to='certificates/', blank=True, null=True)
     certificate_ipfs_hash = models.CharField(max_length=100, blank=True, null=True)
-    timestamp = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(default=get_ist_time)
     quantity = models.FloatField(help_text="Quantity in Kg", default=0)
     current_organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='current_products')
     ipfs_hash = models.CharField(max_length=100, blank=True)
@@ -77,7 +82,7 @@ class Transaction(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='transactions')
     from_organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='outgoing_transactions')
     to_organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='incoming_transactions')
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=get_ist_time)
     transaction_hash = models.CharField(max_length=64, blank=True)
     from_org_hash = models.CharField(max_length=64, blank=True)
     to_org_hash = models.CharField(max_length=64, blank=True)

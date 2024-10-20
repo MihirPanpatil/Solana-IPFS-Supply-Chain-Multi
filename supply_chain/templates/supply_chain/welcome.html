@@ -1,0 +1,23 @@
+{% extends 'supply_chain/base.html' %}
+
+{% block header %}Welcome{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-4">Welcome to Solana Supply Chain</h1>
+<div class="bg-github-dark-secondary p-6 rounded-lg border border-github-dark-border">
+    <p class="mb-4">
+        This application demonstrates a supply chain management system built on the Solana blockchain and IPFS.
+    </p>
+    <h2 class="text-2xl font-bold mb-2">Key Features:</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li>Add and manage products in the supply chain</li>
+        <li>Transfer products between organizations</li>
+        <li>Track product history and transactions</li>
+        <li>Store product data and certificates on IPFS</li>
+        <li>Utilize Solana blockchain for secure and fast transactions</li>
+    </ul>
+    <p>
+        Get started by adding a new product or viewing the existing product list using the sidebar navigation.
+    </p>
+</div>
+{% endblock %}
